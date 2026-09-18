@@ -15,7 +15,7 @@ const DB = __DB_PLACEHOLDER__;
 
 const state = {
   lang: 'ar',
-  viewMode: 'table', // 'table' | 'cards'
+  viewMode: (typeof window !== 'undefined' && window.innerWidth <= 768) ? 'cards' : 'table', // auto default to cards on mobile
   searchQuery: '',
   network: 'all',    // 'all' | 'stc' | 'mobily' | 'zain'
   provider: 'all',   // 'all' | 'stc' | 'jawwy' | 'virgin' | 'mobily' | 'lebara' | 'zain' | 'yaqoot' | 'salam' | 'redbull'
@@ -101,7 +101,8 @@ const i18n = {
     modalSubtitle: "مقارنة تفصيلية دقيقة تشمل كافة الأسعار، توزيع البيانات، المكالمات، الرسائل، والشروط التقنية المخفية",
     hiddenTermsBtn: "🔍 تفاصيل الشروط المخفية والفنية",
     resetFilters: "🔄 إعادة ضبط الفلاتر",
-    foundResults: "تم العثور على"
+    foundResults: "تم العثور على",
+    mobileTableHint: "اسحب الجدول أفقياً للاطلاع على كافة الأعمدة والتفاصيل"
   },
   en: {
     appTitle: "Saudi Telecom Prepaid Packages Comparator",
@@ -139,7 +140,7 @@ const i18n = {
     sortGenDesc: "🌐 Data (Highest)",
     sortSmsDesc: "✉️ SMS (Highest)",
     sortPriceAsc: "💰 Price (Lowest)",
-    sortCostAsc: "💡 Cost/GB (Best Value)",
+    sortCostAsc: "💡 Cost / GB (Best Value)",
     sortValDesc: "⏳ Validity (Longest)",
     thProvider: "Operator & Network",
     thName: "Package Name",
@@ -171,7 +172,8 @@ const i18n = {
     modalSubtitle: "Detailed breakdown of pricing, data allocation, minutes, SMS, and hidden regulatory technical terms",
     hiddenTermsBtn: "🔍 Reveal Technical & Hidden Terms",
     resetFilters: "🔄 Reset Filters",
-    foundResults: "Found"
+    foundResults: "Found",
+    mobileTableHint: "Swipe table horizontally to inspect all columns & details"
   }
 };
 
@@ -182,6 +184,7 @@ function t(key) {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
+  setViewMode(state.viewMode);
   updateUIText();
   updateCalculatorRecommendation();
   render();
@@ -248,6 +251,8 @@ function updateUIText() {
   document.getElementById('txt-modal-title').innerText = t('modalTitle');
   document.getElementById('txt-modal-subtitle').innerText = t('modalSubtitle');
   document.getElementById('btn-dock-open-compare').innerText = t('dockBtnCompare');
+  const mobileHint = document.getElementById('txt-mobile-table-hint');
+  if (mobileHint) mobileHint.innerText = t('mobileTableHint');
 
   // Table Headers
   document.getElementById('th-provider').innerText = t('thProvider');

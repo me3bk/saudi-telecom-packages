@@ -1203,14 +1203,388 @@ footer {
   border-top: 1px solid var(--border-subtle);
 }
 
+/* Mobile Table Swipe Hint (Default: Desktop Hidden) */
+.mobile-table-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 199, 255, 0.08);
+  border: 1px dashed rgba(0, 199, 255, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+  color: var(--cyan);
+  font-weight: 700;
+  text-align: center;
+  animation: pulseGlow 2.5s infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; border-color: rgba(0, 199, 255, 0.8); }
+}
+
 /* ==========================================================================
-   Responsive Adaptations
+   Responsive Adaptations (Tablet & Mobile: <= 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-  .header-title { font-size: 1.6rem; }
-  .control-top-row { flex-direction: column; align-items: stretch; }
-  .view-mode-group { width: 100%; justify-content: center; }
-  .network-chips-wrapper { justify-content: flex-start; }
-  .packages-grid { grid-template-columns: 1fr; }
-  .comparison-floating-dock { width: 90%; justify-content: space-between; border-radius: var(--radius-lg); }
+  /* Prevent horizontal screen scroll on root */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .main-wrapper {
+    padding: 10px 12px 110px; /* Safe space for floating bottom dock */
+  }
+
+  /* Compact Mobile Header */
+  .app-header {
+    padding: 14px 12px 10px;
+  }
+  .header-top-row {
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  .cst-compliance-badge {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 68%;
+  }
+  .lang-btn {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    min-height: 40px;
+  }
+  .header-title {
+    font-size: 1.38rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .header-subtitle {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  /* Compact Filter Card */
+  .control-card {
+    padding: 12px;
+    border-radius: var(--radius-md);
+    margin-bottom: 18px;
+  }
+
+  /* Row 1 Controls */
+  .control-top-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .search-box-wrapper {
+    width: 100%;
+  }
+  /* Prevent iOS Safari 16px auto-zoom */
+  .search-input-field,
+  .custom-select,
+  select,
+  input[type="text"] {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+
+  /* View Switcher: Equal-width 2-column tabs */
+  .view-mode-group {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+  }
+  .view-btn {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Calculator Trigger & Drawer */
+  .calc-open-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    font-size: 0.88rem;
+  }
+  .calc-drawer {
+    padding: 14px 12px;
+  }
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Row 2: Host Network Selector -> Clean 2x2 Grid */
+  .network-chips-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .network-chip {
+    min-height: 44px;
+    padding: 8px 8px;
+    font-size: 0.8rem;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .network-chip .chip-dot {
+    margin-inline-end: 4px;
+  }
+
+  /* Row 3: Category Pills -> Smooth Horizontal Touch Carousel */
+  .category-pills-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 2px 8px;
+    margin: 0 -4px 14px;
+    gap: 8px;
+  }
+  .category-pills-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-pill {
+    flex-shrink: 0;
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  /* Row 4: Refinements Grid */
+  .refinement-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Row 5: Checkboxes */
+  .checkboxes-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+  .check-label {
+    font-size: 0.84rem;
+    width: 100%;
+  }
+
+  /* Row 6: Quick Sort Bar -> Smooth Horizontal Touch Carousel */
+  .quick-sort-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 6px 2px 8px;
+    margin: 0 -4px;
+    gap: 8px;
+    align-items: center;
+  }
+  .quick-sort-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .quick-sort-title {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    margin-inline-end: 4px;
+  }
+  .quick-sort-btn {
+    flex-shrink: 0;
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  /* Results Meta Header */
+  .results-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .results-count-text {
+    font-size: 0.88rem;
+  }
+
+  /* Mobile Table View with Swipe Indicator */
+  .mobile-table-hint {
+    display: flex;
+  }
+  .table-responsive-wrapper {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    margin-bottom: 24px;
+    border-radius: var(--radius-md);
+  }
+  .matrix-table th,
+  .matrix-table td {
+    padding: 10px 12px;
+    white-space: nowrap;
+    font-size: 0.84rem;
+  }
+  .td-pkg-name {
+    font-size: 0.88rem;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .table-pin-btn {
+    min-height: 36px;
+    padding: 6px 10px;
+  }
+
+  /* Cards View (Default Mobile Presentation) */
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .package-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+  .card-pkg-name {
+    font-size: 1.08rem;
+  }
+  .card-pricing-badge {
+    padding: 8px 12px;
+  }
+  .card-price-num {
+    font-size: 1.45rem;
+  }
+  .card-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .metric-box {
+    padding: 8px 10px;
+  }
+  .card-pin-btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-top: 14px;
+  }
+
+  /* Mobile Bottom Dock (Supports iOS Home Bar Safe Area) */
+  .comparison-floating-dock {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-width: calc(100vw - 24px);
+    transform: translateY(140px);
+    border-radius: var(--radius-lg);
+    padding: 10px 14px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    white-space: normal;
+  }
+  .comparison-floating-dock.visible {
+    transform: translateY(0);
+  }
+  .dock-badge-count {
+    font-size: 0.85rem;
+    gap: 6px;
+  }
+  .dock-compare-action-btn {
+    min-height: 42px;
+    padding: 8px 16px;
+    font-size: 0.84rem;
+    flex-shrink: 0;
+  }
+  .dock-clear-action-btn {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+  }
+
+  /* Bottom-Sheet Style Comparison Modal for Phones */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal-window {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+  }
+  .modal-header {
+    padding: 16px;
+  }
+  .modal-title {
+    font-size: 1.1rem;
+  }
+  .modal-subtitle {
+    font-size: 0.78rem;
+  }
+  .modal-body {
+    padding: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-matrix-table th,
+  .modal-matrix-table td {
+    padding: 10px 10px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
 }
+
+/* ==========================================================================
+   Ultra-Narrow Screens (iPhone SE, Galaxy Mini: <= 400px)
+   ========================================================================== */
+@media (max-width: 400px) {
+  .header-title {
+    font-size: 1.25rem;
+  }
+  .cst-compliance-badge {
+    font-size: 0.68rem;
+    padding: 3px 6px;
+    max-width: 60%;
+  }
+  .network-chips-wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .network-chip {
+    padding: 6px 4px;
+    font-size: 0.74rem;
+  }
+  .card-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .dock-badge-count {
+    font-size: 0.78rem;
+  }
+  .dock-compare-action-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+

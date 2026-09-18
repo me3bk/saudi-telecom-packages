@@ -2,7 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080C14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>دليل ومقارنة باقات الاتصالات السعودية | Saudi Telecom Packages</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -215,6 +218,13 @@
 
     <!-- VIEW 1: High-Density Interactive Comparison Table -->
     <div id="table-view-container" class="table-view-container">
+      <!-- Mobile Table Swipe Hint -->
+      <div class="mobile-table-hint" id="mobile-table-hint">
+        <span class="hint-icon">👉</span>
+        <span id="txt-mobile-table-hint">اسحب الجدول أفقياً للاطلاع على كافة الأعمدة والتفاصيل</span>
+        <span class="hint-icon">👈</span>
+      </div>
+
       <div class="table-responsive-wrapper">
         <table class="matrix-table" id="packages-matrix-table">
           <thead>
