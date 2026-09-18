@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل ومقارنة باقات الاتصالات السعودية | Saudi Telecom Packages</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-top-row">
+        <div class="cst-compliance-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span id="txt-cst-badge">مطابق للوائح هيئة الاتصالات والفضاء والتقنية (CST)</span>
+        </div>
+        <div class="header-actions">
+          <button class="lang-btn" id="lang-toggle-btn" onclick="toggleLang()">
+            <span>🌐 English / عربي</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-titles">
+        <h1 class="header-title" id="txt-title">دليل ومقارنة باقات الاتصالات السعودية</h1>
+        <p class="header-subtitle" id="txt-subtitle">
+          منصة المقارنة الذكية الشاملة لجميع مشغلي الاتصالات الرسميين في المملكة مع كشف الشروط الفنية والمخفية (وحدة الحساب 100KB، مكالمات الواي فاي VoWiFi، سياسة خنق السرعة FUP، وترحيل الرصيد).
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-wrapper">
+
+    <!-- Controls & Filters Card -->
+    <div class="control-card">
+
+      <!-- Row 1: Search, View Switcher & Calculator Trigger -->
+      <div class="control-top-row">
+        <div class="search-box-wrapper">
+          <svg class="search-box-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="main-search" class="search-input-field" placeholder="ابحث باسم الباقة، المشغل، السعر، أو الرمز...">
+        </div>
+
+        <!-- View Mode Switcher -->
+        <div class="view-mode-group">
+          <button id="btn-view-table" class="view-btn active" onclick="setViewMode('table')">
+            <span>📊 جدول المقارنة الفوري</span>
+          </button>
+          <button id="btn-view-cards" class="view-btn" onclick="setViewMode('cards')">
+            <span>🎴 بطاقات تفاعلية</span>
+          </button>
+        </div>
+
+        <!-- Calculator Trigger -->
+        <button id="btn-calc-toggle" class="calc-open-btn" onclick="toggleCalculator()">
+          <span>⚡ حاسبة الباقة الأنسب</span>
+        </button>
+      </div>
+
+      <!-- Smart Calculator Drawer -->
+      <div id="calculator-drawer" class="calc-drawer">
+        <div style="font-weight:800; font-size:1.1rem; color:#fff; margin-bottom:14px;">
+          🎯 أداة تحديد الباقة الذكية والموفرة حسب استهلاكك الفعلي
+        </div>
+        <div class="calc-grid">
+          <div>
+            <label style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+              <span id="lbl-calc-gen">البيانات العامة المطلوبة:</span>
+              <strong id="disp-calc-gen" style="color:var(--cyan); font-size:1.1rem;">30 GB</strong>
+            </label>
+            <input type="range" id="calc-gen-slider" class="range-slider" min="5" max="120" step="5" value="30">
+          </div>
+          <div>
+            <label style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+              <span id="lbl-calc-bud">أقصى ميزانية شهرية:</span>
+              <strong id="disp-calc-bud" style="color:var(--emerald); font-size:1.1rem;">120 SAR</strong>
+            </label>
+            <input type="range" id="calc-bud-slider" class="range-slider" min="50" max="350" step="5" value="120">
+          </div>
+          <div class="calc-card-result">
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:4px;" id="lbl-calc-result-title">الباقة المقترحة الأوفر لك:</div>
+            <div id="calc-result-content" style="font-size:0.95rem; font-weight:800; color:#fff;">جاري الحساب...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Host Network Selector (Segmented Badges) -->
+      <div class="filter-section-title" id="lbl-host-network-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+        <span>الشبكة الرئيسية (Host Network)</span>
+      </div>
+      <div class="network-chips-wrapper">
+        <button class="network-chip active" data-net="all" onclick="setNetworkFilter('all')">
+          <span class="chip-dot dot-all"></span>
+          <span>جميع الشبكات (الكل)</span>
+        </button>
+        <button class="network-chip" data-net="stc" onclick="setNetworkFilter('stc')">
+          <span class="chip-dot dot-stc"></span>
+          <span>شبكة stc (سوا، جوّي، فيرجن)</span>
+        </button>
+        <button class="network-chip" data-net="mobily" onclick="setNetworkFilter('mobily')">
+          <span class="chip-dot dot-mobily"></span>
+          <span>شبكة موبايلي (موبايلي، ليبارا)</span>
+        </button>
+        <button class="network-chip" data-net="zain" onclick="setNetworkFilter('zain')">
+          <span class="chip-dot dot-zain"></span>
+          <span>شبكة زين (زين، ياقوت، سلام، ريد بُل)</span>
+        </button>
+      </div>
+
+      <!-- Row 3: Preset Budget & Category Pills -->
+      <div class="category-pills-wrapper">
+        <button class="cat-pill active" data-preset="all" onclick="applyPreset('all')">🌟 عرض الكل</button>
+        <button class="cat-pill highlight-target" data-preset="70-115" onclick="applyPreset('70-115')">🎯 فئة 70 - 115 ريال (الأكثر طلباً)</button>
+        <button class="cat-pill" data-preset="budget-under-70" onclick="applyPreset('budget-under-70')">🟢 باقات اقتصادية (&lt; 70 ريال)</button>
+        <button class="cat-pill" data-preset="budget-70-150" onclick="applyPreset('budget-70-150')">🟡 فئة متوسطة (70 - 150 ريال)</button>
+        <button class="cat-pill" data-preset="budget-above-150" onclick="applyPreset('budget-above-150')">🟣 باقات مميزة (+150 ريال)</button>
+        <button class="cat-pill" data-preset="pure-gen" onclick="applyPreset('pure-gen')">🌐 إنترنت عام صافي فقط</button>
+        <button class="cat-pill" data-preset="vowifi" onclick="applyPreset('vowifi')">📶 تدعم مكالمات واي فاي (VoWiFi)</button>
+        <button class="cat-pill" data-preset="rollover" onclick="applyPreset('rollover')">🔄 تدعم ترحيل البيانات</button>
+      </div>
+
+      <!-- Row 4: Dedicated Sorting & Refinements Grid -->
+      <div class="refinement-grid">
+        <div class="refinement-item">
+          <label id="lbl-filter-provider">المشغل المحدد (Specific Operator)</label>
+          <select id="filter-provider" class="custom-select" onchange="onProviderChange(this.value)">
+            <option value="all">جميع المشغلين التسعة (All 9 Providers)</option>
+            <option value="stc">stc (سوا)</option>
+            <option value="jawwy">جوّي (Jawwy)</option>
+            <option value="virgin">فيرجن موبايل (Virgin Mobile)</option>
+            <option value="mobily">موبايلي (Mobily)</option>
+            <option value="lebara">ليبارا (Lebara)</option>
+            <option value="zain">زين (Zain)</option>
+            <option value="yaqoot">ياقوت (Yaqoot)</option>
+            <option value="salam">سلام موبايل (Salam Mobile)</option>
+            <option value="redbull">ريد بُل موبايل (Red Bull MOBILE)</option>
+          </select>
+        </div>
+
+        <div class="refinement-item">
+          <label id="lbl-filter-sort">الترتيب الرئيسي (Sort By)</label>
+          <select id="filter-sort" class="custom-select" onchange="onSortChange(this.value)">
+            <option value="minutes-desc">📞 دقائق المكالمات (من الأكثر للأقل)</option>
+            <option value="minutes-asc">📞 دقائق المكالمات (من الأقل للأكثر)</option>
+            <option value="gen-desc">🌐 البيانات العامة (من الأعلى للأقل)</option>
+            <option value="gen-asc">🌐 البيانات العامة (من الأقل للأعلى)</option>
+            <option value="sms-desc">✉️ الرسائل القصيرة SMS (من الأكثر للأقل)</option>
+            <option value="sms-asc">✉️ الرسائل القصيرة SMS (من الأقل للأكثر)</option>
+            <option value="price-asc">💰 السعر شامل الضريبة (الأرخص أولاً)</option>
+            <option value="price-desc">💰 السعر شامل الضريبة (الأعلى أولاً)</option>
+            <option value="cost-gen-asc">💡 تكلفة جيجا النت العام (الأوفر اقتصادياً)</option>
+            <option value="total-desc">📊 إجمالي البيانات (العامة + السوشيال)</option>
+            <option value="validity-desc">⏳ فترة الصلاحية (الأطول أولاً)</option>
+          </select>
+        </div>
+
+        <div class="refinement-item">
+          <div class="price-range-header">
+            <span id="lbl-max-price">الحد الأقصى للسعر:</span>
+            <strong id="price-disp" style="color:var(--emerald); font-size:1rem;">450 ريال</strong>
+          </div>
+          <input type="range" id="price-slider" class="range-slider" min="30" max="450" step="5" value="450" oninput="onPriceSlider(this.value)">
+        </div>
+      </div>
+
+      <!-- Checkbox Toggles -->
+      <div class="checkboxes-row">
+        <label class="check-label">
+          <input type="checkbox" id="chk-vowifi" onchange="onCheckboxChange()">
+          <span id="txt-chk-vowifi">مكالمات الواي فاي معتمدة (VoWiFi)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" id="chk-rollover" onchange="onCheckboxChange()">
+          <span id="txt-chk-rollover">ترحيل الرصيد غير المستهلك (Data Rollover)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" id="chk-pure-gen" onchange="onCheckboxChange()">
+          <span id="txt-chk-pure">إنترنت عام صافي فقط (بدون سوشيال مقيد)</span>
+        </label>
+      </div>
+
+      <!-- Quick Sort Buttons Bar -->
+      <div class="quick-sort-bar">
+        <span class="quick-sort-title" id="txt-quick-sort-title">⚡ ترتيب فوري بنقرة واحدة:</span>
+        <button class="quick-sort-btn" data-sort="minutes-desc" onclick="onSortChange('minutes-desc')">📞 المكالمات (الأكثر)</button>
+        <button class="quick-sort-btn" data-sort="gen-desc" onclick="onSortChange('gen-desc')">🌐 النت العام (الأعلى)</button>
+        <button class="quick-sort-btn" data-sort="sms-desc" onclick="onSortChange('sms-desc')">✉️ الرسائل SMS (الأكثر)</button>
+        <button class="quick-sort-btn" data-sort="price-asc" onclick="onSortChange('price-asc')">💰 السعر (الأرخص)</button>
+        <button class="quick-sort-btn" data-sort="cost-gen-asc" onclick="onSortChange('cost-gen-asc')">💡 تكلفة الجيجا (الأوفر)</button>
+        <button class="quick-sort-btn" data-sort="validity-desc" onclick="onSortChange('validity-desc')">⏳ الصلاحية (الأطول)</button>
+      </div>
+
+    </div>
+
+    <!-- Results Meta Bar -->
+    <div class="results-header-bar">
+      <div class="results-count-text" id="results-count-text">
+        جاري تحميل الباقات...
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="active-sort-indicator" id="active-sort-badge">الترتيب: دقائق المكالمات (الأعلى)</span>
+        <button class="cat-pill" style="font-size:0.75rem;" onclick="resetAllFilters()">🔄 إعادة ضبط الفلاتر</button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: High-Density Interactive Comparison Table -->
+    <div id="table-view-container" class="table-view-container">
+      <div class="table-responsive-wrapper">
+        <table class="matrix-table" id="packages-matrix-table">
+          <thead>
+            <tr>
+              <th id="th-provider">المشغل والشبكة</th>
+              <th id="th-name">اسم الباقة</th>
+              <th id="th-price" class="sortable-col" onclick="handleTableSort('price')">
+                <span>السعر شامل الضريبة (15%)</span>
+                <span class="sort-arrow" id="sort-arrow-price"></span>
+              </th>
+              <th id="th-gen" class="sortable-col" onclick="handleTableSort('gen')">
+                <span>البيانات العامة (GB)</span>
+                <span class="sort-arrow" id="sort-arrow-gen"></span>
+              </th>
+              <th id="th-soc" class="sortable-col" onclick="handleTableSort('soc')">
+                <span>بيانات السوشيال</span>
+                <span class="sort-arrow" id="sort-arrow-soc"></span>
+              </th>
+              <th id="th-mins" class="sortable-col" onclick="handleTableSort('minutes')">
+                <span>المكالمات (دقيقة)</span>
+                <span class="sort-arrow" id="sort-arrow-minutes"></span>
+              </th>
+              <th id="th-sms" class="sortable-col" onclick="handleTableSort('sms')">
+                <span>الرسائل (SMS)</span>
+                <span class="sort-arrow" id="sort-arrow-sms"></span>
+              </th>
+              <th id="th-cost" class="sortable-col" onclick="handleTableSort('cost')">
+                <span>تكلفة الجيجا</span>
+                <span class="sort-arrow" id="sort-arrow-cost"></span>
+              </th>
+              <th id="th-val" class="sortable-col" onclick="handleTableSort('validity')">
+                <span>الصلاحية</span>
+                <span class="sort-arrow" id="sort-arrow-validity"></span>
+              </th>
+              <th id="th-vowifi">WiFi Calling</th>
+              <th id="th-rollover">ترحيل الرصيد</th>
+              <th id="th-pin" style="text-align:center;">مقارنة 📌</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Rows injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VIEW 2: Modern Cards Grid -->
+    <div id="cards-view-container" class="packages-grid" style="display:none;">
+      <!-- Cards injected by JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- Sticky Bottom Comparison Dock -->
+  <div id="comparison-dock" class="comparison-floating-dock">
+    <div class="dock-badge-count">
+      <span>📌</span>
+      <span id="dock-count-label">0 باقة محددة للمقارنة</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="dock-compare-action-btn" onclick="openComparisonModal()">
+        <span id="btn-dock-open-compare">عرض المقارنة الشاملة ➔</span>
+      </button>
+      <button class="dock-clear-action-btn" onclick="clearPinned()" title="إلغاء التحديد">✕</button>
+    </div>
+  </div>
+
+  <!-- Side-by-Side Comparison Modal -->
+  <div id="comparison-modal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size:1.4rem; font-weight:900; color:#fff; margin-bottom:4px;" id="txt-modal-title">مقارنة الباقات وجهاً لوجه (Side-by-Side)</h2>
+          <p style="color:var(--text-secondary); font-size:0.85rem;" id="txt-modal-subtitle">مقارنة تفصيلية دقيقة تشمل كافة الأسعار، توزيع البيانات، المكالمات، الرسائل، والشروط التقنية المخفية</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeComparisonModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-matrix-container">
+        <!-- Matrix comparison injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="header-inner">
+      <p id="txt-footer-text">مشروع مقارنة وتوثيق باقات الاتصالات في المملكة العربية السعودية © 2026 | البيانات مستخرجة بدقة من المواقع الرسمية ولوائح هيئة الاتصالات والفضاء والتقنية (CST)</p>
+      <p style="margin-top:8px;">
+        <a href="hidden_terms_guide.md" style="color:var(--cyan); text-decoration:none; margin-inline-end:16px;">📖 دليل الشروط المخفية والفنية</a>
+        <a href="comparison_70_115_sar.md" style="color:var(--amber); text-decoration:none;">🎯 تقرير مقارنة باقات 70 - 115 ريال</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
