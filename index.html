@@ -31,7 +31,7 @@
       <div class="header-titles">
         <h1 class="header-title" id="txt-title">دليل ومقارنة باقات الاتصالات السعودية</h1>
         <p class="header-subtitle" id="txt-subtitle">
-          منصة المقارنة الذكية الشاملة لجميع مشغلي الاتصالات الرسميين في المملكة مع كشف الشروط الفنية والمخفية (وحدة الحساب 100KB، مكالمات الواي فاي VoWiFi، سياسة خنق السرعة FUP، وترحيل الرصيد).
+          منصة المقارنة الذكية الشاملة لجميع مشغلي الاتصالات الرسميين في المملكة لباقات مسبق الدفع والمفوتر، مع كشف الشروط الفنية وعقود الالتزام وغرامات الإلغاء المبكر وفق لوائح هيئة الاتصالات والفضاء والتقنية (CST).
         </p>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <!-- Controls & Filters Card -->
     <div class="control-card">
 
-      <!-- Row 1: Search, View Switcher & Calculator Trigger -->
+      <!-- Row 1: Search, View Switcher, Calculator & CST Guide -->
       <div class="control-top-row">
         <div class="search-box-wrapper">
           <svg class="search-box-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -63,10 +63,15 @@
           </button>
         </div>
 
-        <!-- Calculator Trigger -->
-        <button id="btn-calc-toggle" class="calc-open-btn" onclick="toggleCalculator()">
-          <span>⚡ حاسبة الباقة الأنسب</span>
-        </button>
+        <!-- Action Triggers: Calculator & CST Guide -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button id="btn-calc-toggle" class="calc-open-btn" onclick="toggleCalculator()">
+            <span>⚡ حاسبة الباقة الأنسب</span>
+          </button>
+          <button id="btn-cst-guide-open" class="cst-guide-open-btn" onclick="toggleCstGuide()">
+            <span>⚖️ دليل عقود المفوتر ولوائح CST</span>
+          </button>
+        </div>
       </div>
 
       <!-- Smart Calculator Drawer -->
@@ -80,14 +85,14 @@
               <span id="lbl-calc-gen">البيانات العامة المطلوبة:</span>
               <strong id="disp-calc-gen" style="color:var(--cyan); font-size:1.1rem;">30 GB</strong>
             </label>
-            <input type="range" id="calc-gen-slider" class="range-slider" min="5" max="120" step="5" value="30">
+            <input type="range" id="calc-gen-slider" class="range-slider" min="5" max="150" step="5" value="30">
           </div>
           <div>
             <label style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
               <span id="lbl-calc-bud">أقصى ميزانية شهرية:</span>
               <strong id="disp-calc-bud" style="color:var(--emerald); font-size:1.1rem;">120 SAR</strong>
             </label>
-            <input type="range" id="calc-bud-slider" class="range-slider" min="50" max="350" step="5" value="120">
+            <input type="range" id="calc-bud-slider" class="range-slider" min="50" max="600" step="10" value="120">
           </div>
           <div class="calc-card-result">
             <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:4px;" id="lbl-calc-result-title">الباقة المقترحة الأوفر لك:</div>
@@ -96,7 +101,59 @@
         </div>
       </div>
 
-      <!-- Row 2: Host Network Selector (Segmented Badges) -->
+      <!-- CST Postpaid Regulations & Contract Rights Drawer -->
+      <div id="cst-guide-drawer" class="cst-guide-drawer">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid rgba(245, 158, 11, 0.3); padding-bottom:10px;">
+          <div style="font-weight:900; font-size:1.15rem; color:var(--amber); display:flex; align-items:center; gap:8px;">
+            <span>⚖️ دليل عقود المفوتر، الشروط الجزائية، ولوائح حماية المستخدم (CST)</span>
+          </div>
+          <button onclick="toggleCstGuide()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; font-size:0.85rem; line-height:1.6; color:#E2E8F0;">
+          <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:8px; border:1px solid var(--border-subtle);">
+            <strong style="color:var(--cyan); display:block; margin-bottom:6px; font-size:0.95rem;">📜 أنواع العقود في المفوتر:</strong>
+            <p style="margin:0 0 8px;"><strong>1. عقد شهري بدون التزام (SIM-Only):</strong> تشترك بالشريحة فقط؛ يحق لك إلغاؤها في أي وقت <strong>بدون أي شرط جزائي إطلاقاً</strong>، وتُحسب الفاتورة بالنسبة والتناسب.</p>
+            <p style="margin:0;"><strong>2. عقد التزام سنوي (12 أو 24 شهراً):</strong> يرتبط فقط بالحصول على خصم جهاز ذكي مدعوم.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:8px; border:1px solid var(--border-subtle);">
+            <strong style="color:var(--amber); display:block; margin-bottom:6px; font-size:0.95rem;">⚖️ معادلة CST لحساب غرامة الإلغاء المبكر:</strong>
+            <p style="margin:0 0 6px;"><strong>ممنوع نظاماً:</strong> مطالبة العميل بباقي اشتراكات الخدمة للأشهر المتبقية!</p>
+            <p style="margin:0 0 6px; background:rgba(245,158,11,0.1); padding:6px 10px; border-radius:6px; font-family:monospace; font-weight:700;">
+              الغرامة = (قيمة دعم الجهاز الفعلي ÷ مدة العقد بالأشهر) × الأشهر المتبقية
+            </p>
+            <p style="margin:0; font-size:0.8rem; color:var(--text-secondary);">يدفع العميل فقط المتبقي من قيمة الجهاز دون أي هللة لرسوم الخدمة المستقبلية.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:8px; border:1px solid var(--border-subtle);">
+            <strong style="color:var(--emerald); display:block; margin-bottom:6px; font-size:0.95rem;">🛡️ حماية الحد الائتماني (Bill Shock):</strong>
+            <p style="margin:0 0 6px;">تُلزم هيئة الاتصالات المشغلين بوضع حد ائتماني يحدده العميل ووقف الخدمات الإضافية فوراً عند بلوغ 100%.</p>
+            <p style="margin:0;">إشعار العميل برسائل تحذيرية مجانية عند بلوغ 80% ثم 100% من الحد الائتماني لمنع أي فواتير مفاجئة.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:8px; border:1px solid var(--border-subtle);">
+            <strong style="color:var(--purple); display:block; margin-bottom:6px; font-size:0.95rem;">📱 مزايا المفوتر الكبرى (Multi-SIM):</strong>
+            <p style="margin:0 0 6px;">ميزة تشغيل 2 إلى 3 شرائح بنفس الرقم لمشاركة باقة النت مع الآيباد وراوتر السيارة (متاحة مجاناً في باقات مثل مفوتر 4، موبايلي 400، وزين بلاك).</p>
+            <p style="margin:0;">دقائق تجوال وجيجابايت مدمجة تسافر معك دولياً بدون شحن رصيد إضافي.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Type Segmented Control (Prepaid vs Postpaid vs All) -->
+      <div class="filter-section-title" id="lbl-pkg-type-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>نوع الفوترة (Billing Type)</span>
+      </div>
+      <div class="pkg-type-segment-wrapper">
+        <button class="pkg-type-btn active" data-type="all" onclick="setPackageType('all')">
+          <span>🌟 جميع الباقات (الكل - 98 باقة)</span>
+        </button>
+        <button class="pkg-type-btn" data-type="prepaid" onclick="setPackageType('prepaid')">
+          <span>⚡ باقات مسبق الدفع (شحن - 64 باقة)</span>
+        </button>
+        <button class="pkg-type-btn" data-type="postpaid" onclick="setPackageType('postpaid')">
+          <span>💳 باقات المفوتر والفواتير (34 باقة)</span>
+        </button>
+      </div>
+
+      <!-- Host Network Selector (Segmented Badges) -->
       <div class="filter-section-title" id="lbl-host-network-title">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
         <span>الشبكة الرئيسية (Host Network)</span>
@@ -123,7 +180,10 @@
       <!-- Row 3: Preset Budget & Category Pills -->
       <div class="category-pills-wrapper">
         <button class="cat-pill active" data-preset="all" onclick="applyPreset('all')">🌟 عرض الكل</button>
-        <button class="cat-pill highlight-target" data-preset="70-115" onclick="applyPreset('70-115')">🎯 فئة 70 - 115 ريال (الأكثر طلباً)</button>
+        <button class="cat-pill highlight-target" data-preset="70-115" onclick="applyPreset('70-115')">🎯 فئة 70 - 115 ريال (مسبق الدفع)</button>
+        <button class="cat-pill" data-preset="postpaid-popular" onclick="applyPreset('postpaid-popular')">💎 باقات المفوتر الأكثر طلباً</button>
+        <button class="cat-pill" data-preset="multi-sim" onclick="applyPreset('multi-sim')">📱 باقات الشرائح المتعددة</button>
+        <button class="cat-pill" data-preset="roaming" onclick="applyPreset('roaming')">✈️ باقات تشمل تجوال دولي</button>
         <button class="cat-pill" data-preset="budget-under-70" onclick="applyPreset('budget-under-70')">🟢 باقات اقتصادية (&lt; 70 ريال)</button>
         <button class="cat-pill" data-preset="budget-70-150" onclick="applyPreset('budget-70-150')">🟡 فئة متوسطة (70 - 150 ريال)</button>
         <button class="cat-pill" data-preset="budget-above-150" onclick="applyPreset('budget-above-150')">🟣 باقات مميزة (+150 ريال)</button>
@@ -138,7 +198,7 @@
           <label id="lbl-filter-provider">المشغل المحدد (Specific Operator)</label>
           <select id="filter-provider" class="custom-select" onchange="onProviderChange(this.value)">
             <option value="all">جميع المشغلين التسعة (All 9 Providers)</option>
-            <option value="stc">stc (سوا)</option>
+            <option value="stc">stc (سوا والمفوتر)</option>
             <option value="jawwy">جوّي (Jawwy)</option>
             <option value="virgin">فيرجن موبايل (Virgin Mobile)</option>
             <option value="mobily">موبايلي (Mobily)</option>
@@ -170,9 +230,9 @@
         <div class="refinement-item">
           <div class="price-range-header">
             <span id="lbl-max-price">الحد الأقصى للسعر:</span>
-            <strong id="price-disp" style="color:var(--emerald); font-size:1rem;">450 ريال</strong>
+            <strong id="price-disp" style="color:var(--emerald); font-size:1rem;">950 ريال</strong>
           </div>
-          <input type="range" id="price-slider" class="range-slider" min="30" max="450" step="5" value="450" oninput="onPriceSlider(this.value)">
+          <input type="range" id="price-slider" class="range-slider" min="30" max="950" step="10" value="950" oninput="onPriceSlider(this.value)">
         </div>
       </div>
 
@@ -189,6 +249,18 @@
         <label class="check-label">
           <input type="checkbox" id="chk-pure-gen" onchange="onCheckboxChange()">
           <span id="txt-chk-pure">إنترنت عام صافي فقط (بدون سوشيال مقيد)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" id="chk-multi-sim" onchange="onCheckboxChange()">
+          <span id="txt-chk-multi-sim">تدعم شرائح متعددة (Multi-SIM)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" id="chk-roaming" onchange="onCheckboxChange()">
+          <span id="txt-chk-roaming">تشمل تجوال دولي (Roaming)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" id="chk-device" onchange="onCheckboxChange()">
+          <span id="txt-chk-device">تدعم تقسيط وخصم أجهزة (Device Subsidy)</span>
         </label>
       </div>
 
@@ -210,7 +282,7 @@
       <div class="results-count-text" id="results-count-text">
         جاري تحميل الباقات...
       </div>
-      <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
         <span class="active-sort-indicator" id="active-sort-badge">الترتيب: دقائق المكالمات (الأعلى)</span>
         <button class="cat-pill" style="font-size:0.75rem;" onclick="resetAllFilters()">🔄 إعادة ضبط الفلاتر</button>
       </div>
@@ -230,7 +302,7 @@
           <thead>
             <tr>
               <th id="th-provider">المشغل والشبكة</th>
-              <th id="th-name">اسم الباقة</th>
+              <th id="th-name">اسم الباقة ونوعها</th>
               <th id="th-price" class="sortable-col" onclick="handleTableSort('price')">
                 <span>السعر شامل الضريبة (15%)</span>
                 <span class="sort-arrow" id="sort-arrow-price"></span>
@@ -256,24 +328,24 @@
                 <span class="sort-arrow" id="sort-arrow-cost"></span>
               </th>
               <th id="th-val" class="sortable-col" onclick="handleTableSort('validity')">
-                <span>الصلاحية</span>
+                <span>نوع الفوترة / الصلاحية</span>
                 <span class="sort-arrow" id="sort-arrow-validity"></span>
               </th>
               <th id="th-vowifi">WiFi Calling</th>
               <th id="th-rollover">ترحيل الرصيد</th>
-              <th id="th-pin" style="text-align:center;">مقارنة 📌</th>
+              <th id="th-pin">مقارنة 📌</th>
             </tr>
           </thead>
           <tbody id="table-body">
-            <!-- Rows injected by JavaScript -->
+            <!-- Dynamic Rows Generated by JS -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- VIEW 2: Modern Cards Grid -->
+    <!-- VIEW 2: Modern Cards Grid View -->
     <div id="cards-view-container" class="packages-grid" style="display:none;">
-      <!-- Cards injected by JavaScript -->
+      <!-- Dynamic Cards Generated by JS -->
     </div>
 
   </main>
@@ -285,10 +357,10 @@
       <span id="dock-count-label">0 باقة محددة للمقارنة</span>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
-      <button class="dock-compare-action-btn" onclick="openComparisonModal()">
-        <span id="btn-dock-open-compare">عرض المقارنة الشاملة ➔</span>
+      <button id="btn-dock-open-compare" class="dock-compare-action-btn" onclick="openComparisonModal()">
+        عرض المقارنة الشاملة ➔
       </button>
-      <button class="dock-clear-action-btn" onclick="clearPinned()" title="إلغاء التحديد">✕</button>
+      <button class="dock-clear-action-btn" onclick="clearPinned()" title="إلغاء التثبيت">✕</button>
     </div>
   </div>
 
@@ -297,24 +369,27 @@
     <div class="modal-window">
       <div class="modal-header">
         <div>
-          <h2 style="font-size:1.4rem; font-weight:900; color:#fff; margin-bottom:4px;" id="txt-modal-title">مقارنة الباقات وجهاً لوجه (Side-by-Side)</h2>
-          <p style="color:var(--text-secondary); font-size:0.85rem;" id="txt-modal-subtitle">مقارنة تفصيلية دقيقة تشمل كافة الأسعار، توزيع البيانات، المكالمات، الرسائل، والشروط التقنية المخفية</p>
+          <h2 class="modal-title" id="txt-modal-title">مقارنة الباقات وجهاً لوجه (Side-by-Side)</h2>
+          <p class="modal-subtitle" id="txt-modal-subtitle">
+            مقارنة تفصيلية دقيقة تشمل كافة الأسعار، توزيع البيانات، المكالمات، الرسائل، الشروط التقنية، وعقود الالتزام وغرامات الإلغاء وفق لوائح CST
+          </p>
         </div>
         <button class="modal-close-btn" onclick="closeComparisonModal()">&times;</button>
       </div>
       <div class="modal-body" id="modal-matrix-container">
-        <!-- Matrix comparison injected here -->
+        <!-- Generated Dynamic Comparison Table -->
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- App Footer -->
   <footer>
-    <div class="header-inner">
-      <p id="txt-footer-text">مشروع مقارنة وتوثيق باقات الاتصالات في المملكة العربية السعودية © 2026 | البيانات مستخرجة بدقة من المواقع الرسمية ولوائح هيئة الاتصالات والفضاء والتقنية (CST)</p>
-      <p style="margin-top:8px;">
-        <a href="hidden_terms_guide.md" style="color:var(--cyan); text-decoration:none; margin-inline-end:16px;">📖 دليل الشروط المخفية والفنية</a>
-        <a href="comparison_70_115_sar.md" style="color:var(--amber); text-decoration:none;">🎯 تقرير مقارنة باقات 70 - 115 ريال</a>
+    <div style="max-width:1100px; margin:0 auto; line-height:1.7;">
+      <p>
+        <strong>منصة دليل ومقارنة باقات الاتصالات في المملكة العربية السعودية</strong> — مرجعك الموثوق لمقارنة كافة باقات مسبق الدفع والمفوتر لكافة المشغلين الرسميين (stc، موبايلي، زين، سلام، ريد بُل، فيرجن، جوّي، ليبارا، ياقوت).
+      </p>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+        جميع الحقوق والبيانات مستندة إلى المواقع الرسمية لمشغلي الاتصالات ولوائح هيئة الاتصالات والفضاء والتقنية (CST). تخضع الأسعار لضريبة القيمة المضافة 15%.
       </p>
     </div>
   </footer>

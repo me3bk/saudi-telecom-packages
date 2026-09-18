@@ -1229,6 +1229,26 @@ footer {
    Responsive Adaptations (Tablet & Mobile: <= 768px)
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Package Type Segmented Control Mobile */
+  .pkg-type-segment-wrapper {
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    padding: 6px;
+    gap: 6px;
+  }
+  .pkg-type-btn {
+    min-height: 42px;
+    font-size: 0.85rem;
+    padding: 8px 10px;
+    justify-content: center;
+  }
+  .cst-guide-open-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    font-size: 0.88rem;
+  }
+
   /* Prevent horizontal screen scroll on root */
   html, body {
     overflow-x: hidden;
@@ -1588,3 +1608,116 @@ footer {
   }
 }
 
+\n
+/* ==========================================================================
+   Package Type Segmented Selector (Prepaid vs Postpaid vs All)
+   ========================================================================== */
+.pkg-type-segment-wrapper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-medium);
+  margin-bottom: 16px;
+  gap: 6px;
+}
+.pkg-type-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.pkg-type-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.pkg-type-btn.active {
+  background: linear-gradient(135deg, var(--cyan) 0%, #0066FF 100%);
+  color: #080C14;
+  box-shadow: 0 4px 16px rgba(0, 199, 255, 0.35);
+}
+
+/* CST Postpaid Guide Drawer & Trigger */
+.cst-guide-open-btn {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--amber);
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.cst-guide-open-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: var(--amber);
+  color: #fff;
+}
+
+.cst-guide-drawer {
+  display: none;
+  background: rgba(14, 21, 36, 0.96);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.15);
+  animation: fadeIn 0.25s ease-out;
+}
+.cst-guide-drawer.open {
+  display: block;
+}
+
+/* Postpaid & Prepaid Badges */
+.badge-postpaid {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 102, 255, 0.2);
+  border: 1px solid rgba(0, 102, 255, 0.5);
+  color: #93C5FD;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.badge-prepaid {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #6EE7B7;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.tag-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: #E2E8F0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}

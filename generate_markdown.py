@@ -1,17 +1,19 @@
 import json, os
 
-with open('/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
+with open('/home/speedlo/Projects/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
     db = json.load(f)
 
-providers_dir = '/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages/providers'
+providers_dir = '/home/speedlo/Projects/saudi-telecom-packages/providers'
 os.makedirs(providers_dir, exist_ok=True)
 
-# Generate each provider's file
 for p in db['providers']:
     p_id = p['id']
     filename = os.path.join(providers_dir, f"{p_id}.md")
     hc = p['hidden_conditions']
     
+    prepaid_pkgs = [x for x in p['packages'] if x.get('package_type') == 'prepaid']
+    postpaid_pkgs = [x for x in p['packages'] if x.get('package_type') == 'postpaid']
+
     content = f"""# {p['name_ar']} / {p['name_en']}
 
 **الشبكة / Host Network:** {p['network']}  
@@ -34,30 +36,38 @@ for p in db['providers']:
 
 ---
 
-## 2. جدول الباقات مسبقة الدفع الحالية / Active Prepaid Packages
+## 2. جدول باقات مسبق الدفع / Active Prepaid Packages ({len(prepaid_pkgs)} باقة)
 
-| اسم الباقة (Package Name) | السعر الأساسي (SAR) | السعر شامل الضريبة 15% (SAR) | البيانات العامة (General Data) | بيانات السوشيال (Social Data) | الدقائق المحلية (Minutes) | الصلاحية (Validity) | تكلفة الجيجا العام (SAR/General GB) | المزايا الحصرية (Special Perks) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| اسم الباقة (Package Name) | السعر شامل الضريبة 15% (SAR) | البيانات العامة | بيانات السوشيال | الدقائق المحلية | الصلاحية | تكلفة الجيجا | المزايا الحصرية |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 """
-    for pkg in p['packages']:
-        gen = f"{int(pkg['general_data_gb'])} GB" if pkg['general_data_gb'] < 1000 else "لا محدود (Unlimited)"
-        if pkg['unlimited_social']:
-            soc = "**لا محدود (Unlimited)**"
-        elif pkg['social_data_gb'] > 0:
-            soc = f"{int(pkg['social_data_gb'])} GB"
-        else:
-            soc = "0 GB"
-        
-        mins = f"{pkg['local_minutes']}" if pkg['local_minutes'] < 9999 else "لا محدود (Unlimited)"
-        
-        if pkg['general_data_gb'] < 1000 and pkg['general_data_gb'] > 0:
-            cost_gen = f"{pkg['price_vat'] / pkg['general_data_gb']:.2f} ريال"
-        else:
-            cost_gen = "غير محدود"
-            
-        content += f"| **{pkg['name_ar']}**<br>*{pkg['name_en']}* | {pkg['price_base']:.2f} | **{pkg['price_vat']:.2f}** | **{gen}** | {soc} | {mins} | {pkg['validity_days']} يوم | {cost_gen} | {pkg['special_perks_ar']} |\\n"
+    for pkg in prepaid_pkgs:
+        gen = f"{int(pkg['general_data_gb'])} GB" if pkg['general_data_gb'] < 1000 else "لا محدود"
+        soc = "**لا محدود**" if pkg.get('unlimited_social') else (f"{int(pkg['social_data_gb'])} GB" if pkg.get('social_data_gb', 0) > 0 else "0 GB")
+        mins = f"{pkg['local_minutes']}" if pkg['local_minutes'] < 9999 else "لا محدود"
+        cost_gen = f"{pkg['price_vat'] / pkg['general_data_gb']:.2f} ريال" if (0 < pkg['general_data_gb'] < 1000) else "غير محدود"
+        content += f"| **{pkg['name_ar']}**<br>*{pkg['name_en']}* | **{pkg['price_vat']:.2f}** | **{gen}** | {soc} | {mins} | {pkg['validity_days']} يوم | {cost_gen} | {pkg['special_perks_ar']} |\n"
+
+    content += f"""
+---
+
+## 3. جدول باقات المفوتر وعقود الالتزام / Postpaid & Contract Plans ({len(postpaid_pkgs)} باقة)
+
+| اسم الباقة (Plan Name) | السعر الشهري شامل 15% VAT | النت العام والسوشيال | المكالمات والرسائل | الشرائح المتعددة (Multi-SIM) | التجوال الدولي | دعم الأجهزة الذكية | شروط الإلغاء وغرامات CST |
+| :--- | :---: | :---: | :---: | :--- | :--- | :--- | :--- |
+"""
+    for pkg in postpaid_pkgs:
+        gen = f"{int(pkg['general_data_gb'])} GB" if pkg['general_data_gb'] < 1000 else "5G لا محدود"
+        soc = "سوشيال لا محدود" if pkg.get('unlimited_social') else (f"{int(pkg['social_data_gb'])} GB سوشيال" if pkg.get('social_data_gb', 0) > 0 else "-")
+        data_str = f"**{gen}** + {soc}"
+        mins_str = "مكالمات ورسائل مفتوحة" if (pkg['local_minutes'] >= 9999 and pkg['sms'] >= 9999) else f"{pkg['local_minutes']} دقيقة | {pkg['sms']} رسالة"
+        sim_str = pkg['multi_sim_details_ar']
+        roam_str = pkg['roaming_included_ar']
+        dev_str = "✅ متاح بعقد 12/24 شهر" if pkg['device_subsidy_available'] else "غير متاح"
+        cancel_str = pkg['cancellation_terms_ar']
+        content += f"| **{pkg['name_ar']}**<br>*{pkg['name_en']}* | **{pkg['price_vat']:.2f} ريال** | {data_str} | {mins_str} | {sim_str} | {roam_str} | {dev_str} | {cancel_str} |\n"
 
     with open(filename, 'w', encoding='utf-8') as pf:
         pf.write(content)
 
-print("Generated all provider markdown files successfully!")
+print(f"Successfully regenerated all provider markdown files with Prepaid & Postpaid in {providers_dir}!")
