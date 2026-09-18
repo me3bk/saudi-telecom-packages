@@ -2,6 +2,9 @@
 
 منصة ويب تفاعلية حديثة وشاملة لمقارنة جميع باقات مسبق الدفع (شحن) لمشغلي الاتصالات التسعة في المملكة العربية السعودية، مستخرجة ومحققة مباشرة من المواقع الرسمية ولوائح هيئة الاتصالات والفضاء والتقنية (CST).
 
+🔗 **المنصة المباشرة (Live Demo):** [https://telecom.ayman.lat](https://telecom.ayman.lat)  
+📦 **مستودع جيت هب (GitHub Repository):** [https://github.com/me3bk/saudi-telecom-packages](https://github.com/me3bk/saudi-telecom-packages)
+
 ![معاينة جدول المقارنة الفوري](assets/preview_table_matrix.png)
 
 ---
