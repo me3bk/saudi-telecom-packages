@@ -1,4 +1,7 @@
+const path = require('path');
 const { chromium } = require('playwright-core');
+
+const ROOT = path.resolve(__dirname, '..');
 
 const viewports = [
   { name: 'iPhone 15 / 14 Pro', width: 393, height: 852 },
@@ -29,7 +32,7 @@ const viewports = [
     });
     page.on('pageerror', err => errors.push(err.message));
 
-    await page.goto('file:///home/speedlo/Projects/saudi-telecom-packages/index.html');
+    await page.goto('file://' + path.join(ROOT, 'index.html'));
     await page.waitForTimeout(500);
 
     if (errors.length > 0) {
@@ -61,17 +64,17 @@ const viewports = [
 
     // Only take detailed screenshots for the primary reference device (iPhone 15)
     if (vp.name.includes('iPhone 15')) {
-      await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_cards_default.png' });
+      await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_cards_default.png') });
 
       // Pin first package and test bottom dock
       await page.locator('.card-pin-btn').first().click();
       await page.waitForTimeout(300);
-      await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_pinned_dock.png' });
+      await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_pinned_dock.png') });
 
       // Open side-by-side modal
       await page.locator('.dock-compare-action-btn').click();
       await page.waitForTimeout(400);
-      await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_modal_sheet.png' });
+      await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_modal_sheet.png') });
 
       // Close modal
       await page.locator('.modal-close-btn').click();
@@ -82,12 +85,12 @@ const viewports = [
       await page.waitForTimeout(300);
       const isTableHintVisible = await page.locator('#mobile-table-hint').evaluate(el => window.getComputedStyle(el).display !== 'none');
       console.log(`✓ Mobile Table Hint is visible: ${isTableHintVisible}`);
-      await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_table_hint.png' });
+      await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_table_hint.png') });
 
       // Switch to English
       await page.locator('#lang-toggle-btn').click();
       await page.waitForTimeout(300);
-      await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_english.png' });
+      await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_english.png') });
     }
 
     await context.close();

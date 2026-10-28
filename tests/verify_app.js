@@ -1,4 +1,7 @@
+const path = require('path');
 const { chromium } = require('playwright-core');
+
+const ROOT = path.resolve(__dirname, '..');
 
 (async () => {
   const browser = await chromium.launch({
@@ -15,7 +18,7 @@ const { chromium } = require('playwright-core');
   page.on('pageerror', err => errors.push(err.message));
 
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('file:///home/speedlo/Projects/saudi-telecom-packages/index.html');
+  await page.goto('file://' + path.join(ROOT, 'index.html'));
   await page.waitForTimeout(600);
 
   console.log('--- Initial Load ---');
@@ -79,7 +82,7 @@ const { chromium } = require('playwright-core');
   console.log(`Top row price after clicking Price header: ${firstPriceVal}`);
 
   // Capture Screenshot of Table Matrix
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/preview_table_matrix.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'preview_table_matrix.png') });
   console.log('Saved preview_table_matrix.png');
 
   // 6. Test Cards View Switcher
@@ -91,7 +94,7 @@ const { chromium } = require('playwright-core');
   if (cardsCount === 0) throw new Error('Cards view is empty!');
 
   // Capture Screenshot of Cards View
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/preview_cards_view.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'preview_cards_view.png') });
   console.log('Saved preview_cards_view.png');
 
   // 7. Test 70-115 SAR Preset
@@ -100,7 +103,7 @@ const { chromium } = require('playwright-core');
   await page.waitForTimeout(400);
   const preset70Count = await page.locator('#cards-view-container .package-card').count();
   console.log(`Packages in 70-115 SAR range: ${preset70Count}`);
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/preview_70_115_cards.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'preview_70_115_cards.png') });
 
   // 8. Test Pinning & Side-by-Side Comparison Modal
   console.log('\n--- Testing Pinning & Side-by-Side Modal ---');
@@ -121,7 +124,7 @@ const { chromium } = require('playwright-core');
   const modalVisible = await page.locator('#comparison-modal').isVisible();
   console.log(`Comparison modal open: ${modalVisible}`);
 
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/preview_comparison_modal_new.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'preview_comparison_modal_new.png') });
   console.log('Saved preview_comparison_modal_new.png');
 
   // Close modal and test English toggle
@@ -131,7 +134,7 @@ const { chromium } = require('playwright-core');
   await page.waitForTimeout(400);
   const enTitle = await page.locator('#txt-title').innerText();
   console.log(`English title: ${enTitle}`);
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/preview_english_new.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'preview_english_new.png') });
   console.log('Saved preview_english_new.png');
 
   console.log('\n=============================================');

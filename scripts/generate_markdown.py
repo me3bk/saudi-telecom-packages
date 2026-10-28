@@ -1,9 +1,12 @@
 import json, os
+import os
 
-with open('/home/speedlo/Projects/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+with open(os.path.join(ROOT, 'packages.json'), 'r', encoding='utf-8') as f:
     db = json.load(f)
 
-providers_dir = '/home/speedlo/Projects/saudi-telecom-packages/providers'
+providers_dir = os.path.join(ROOT, 'providers')
 os.makedirs(providers_dir, exist_ok=True)
 
 for p in db['providers']:

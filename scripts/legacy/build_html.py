@@ -1,6 +1,9 @@
 import json
+import os
 
-with open('/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+with open(os.path.join(ROOT, 'packages.json'), 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 json_str = json.dumps(data, ensure_ascii=False)
@@ -530,7 +533,7 @@ html_content = f"""<!DOCTYPE html>
 </html>
 """
 
-with open('/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages/index.html', 'w', encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
     f.write(html_content)
 
 print("Generated interactive dashboard index.html successfully!")

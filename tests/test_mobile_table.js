@@ -1,4 +1,7 @@
+const path = require('path');
 const { chromium } = require('playwright-core');
+
+const ROOT = path.resolve(__dirname, '..');
 
 (async () => {
   const browser = await chromium.launch({
@@ -18,7 +21,7 @@ const { chromium } = require('playwright-core');
   const context = await browser.newContext(iPhone);
   const page = await context.newPage();
 
-  await page.goto('file:///home/speedlo/Projects/saudi-telecom-packages/index.html');
+  await page.goto('file://' + path.join(ROOT, 'index.html'));
   await page.waitForTimeout(500);
 
   // Switch to table
@@ -28,7 +31,7 @@ const { chromium } = require('playwright-core');
   // Scroll to table
   await page.locator('#mobile-table-hint').scrollIntoViewIfNeeded();
   await page.waitForTimeout(300);
-  await page.screenshot({ path: '/home/speedlo/Projects/saudi-telecom-packages/assets/mobile_table_scrolled.png' });
+  await page.screenshot({ path: path.join(ROOT, 'assets', 'mobile_table_scrolled.png') });
 
   await browser.close();
 })();

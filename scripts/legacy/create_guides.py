@@ -1,6 +1,9 @@
 import json
+import os
 
-base_dir = '/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages'
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+base_dir = ROOT
 
 # 1. hidden_terms_guide.md
 hidden_guide = """# دليل الشروط والأحكام الفنية والمخفية لباقات الاتصالات في السعودية
@@ -61,7 +64,7 @@ hidden_guide = """# دليل الشروط والأحكام الفنية والم
 * **باقي المشغلين (stc, جوّي, موبايلي, زين, فيرجن, ليبارا, ياقوت):** تنتهي البيانات المتبقية بنهاية مدة الباقة (28 أو 30 يوماً).
 """
 
-with open(f'{base_dir}/hidden_terms_guide.md', 'w', encoding='utf-8') as f:
+with open(f'{base_dir}/docs/hidden_terms_guide.md', 'w', encoding='utf-8') as f:
     f.write(hidden_guide)
 
 # 2. comparison_70_115_sar.md
@@ -117,7 +120,7 @@ comp_guide = """# مقارنة باقات فئة (70 - 115 ريال) مع الت
   * ميزة ريد بُل: البيانات تتحول إلى جيجاكوين لا تنتهي صلاحيتها أبداً.
 """
 
-with open(f'{base_dir}/comparison_70_115_sar.md', 'w', encoding='utf-8') as f:
+with open(f'{base_dir}/docs/comparison_70_115_sar.md', 'w', encoding='utf-8') as f:
     f.write(comp_guide)
 
 # 3. README.md

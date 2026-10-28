@@ -1,4 +1,7 @@
 import json
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 data = {
     "metadata": {
@@ -1040,7 +1043,7 @@ data = {
     ]
 }
 
-with open('/home/speedlo/.gemini/antigravity/scratch/saudi-telecom-packages/packages.json', 'w', encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'packages.json'), 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
 print("Generated packages.json successfully!")

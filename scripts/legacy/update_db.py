@@ -1,6 +1,9 @@
 import json
+import os
 
-with open('/home/speedlo/Projects/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+with open(os.path.join(ROOT, 'packages.json'), 'r', encoding='utf-8') as f:
     db = json.load(f)
 
 for p in db['providers']:
@@ -44,7 +47,7 @@ for p in db['providers']:
             else:
                 pkg['sms'] = 0
 
-with open('/home/speedlo/Projects/saudi-telecom-packages/packages.json', 'w', encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'packages.json'), 'w', encoding='utf-8') as f:
     json.dump(db, f, ensure_ascii=False, indent=2)
 
 print("Updated packages.json with network_code and sms fields!")

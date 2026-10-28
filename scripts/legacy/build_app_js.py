@@ -1,6 +1,9 @@
 import json
+import os
 
-with open('/home/speedlo/Projects/saudi-telecom-packages/packages.json', 'r', encoding='utf-8') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+with open(os.path.join(ROOT, 'packages.json'), 'r', encoding='utf-8') as f:
     db = json.load(f)
 
 json_str = json.dumps(db, ensure_ascii=False)
@@ -593,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {{
 }});
 """
 
-with open('/home/speedlo/Projects/saudi-telecom-packages/app.js', 'w', encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'app.js'), 'w', encoding='utf-8') as f:
     f.write(app_js_content)
 
 print("Generated app.js successfully!")

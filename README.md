@@ -71,26 +71,21 @@
 
 ```
 saudi-telecom-packages/
-├── index.html                     # واجهة المنصة التفاعلية المحدثة (مسبق + مفوتر)
-├── style.css                      # التصميم الداكن الفاخر والأنماط الانسيابية المتجاوبة
-├── app.js                         # محرك المعالجة والفلترة وقاعدة البيانات المدمجة
-├── packages.json                  # قاعدة بيانات JSON الكاملة (98 باقة رسمية)
-├── postpaid_contracts_cst_guide.md# الدليل الشامل لعقود المفوتر والشروط الجزائية ولوائح CST
-├── hidden_terms_guide.md          # الدليل الفني للشروط المخفية ولوائح CST
-├── comparison_70_115_sar.md       # تقرير تحليلي متخصص لفئة 70 - 115 ريال
-├── assets/                        # لقطات الشاشة والمعاينات البصرية
-├── generate_app_js.py             # سكربت توليد وتحديث app.js مع قاعدة البيانات
-├── generate_markdown.py           # سكربت توليد توثيق المشغلين في providers/
-└── providers/                     # توثيق تفصيلي لكل مشغل على حدة (شحن ومفوتر)
-    ├── stc.md                     # إس تي سي (سوا ومفوتر)
-    ├── jawwy.md                   # جوّي من stc
-    ├── virgin.md                  # فيرجن موبايل (شبكة stc)
-    ├── mobily.md                  # موبايلي (شحن ومفوتر)
-    ├── lebara.md                  # ليبارا (شبكة موبايلي)
-    ├── zain.md                    # زين السعودية (شباب وبلاك)
-    ├── yaqoot.md                  # ياقوت (شبكة زين)
-    ├── salam.md                   # سلام موبايل (سولو شحن ومفوتر)
-    └── redbull.md                 # ريد بُل موبايل (شبكة زين)
+├── index.html                  # واجهة المنصة (مسبق + مفوتر)
+├── style.css                   # التصميم الداكن المتجاوب
+├── app.js                      # محرك الفلترة والفرز + قاعدة البيانات المدمجة (مولَّد)
+├── packages.json               # قاعدة البيانات الكاملة (98 باقة، metadata.last_updated)
+├── assets/                     # لقطات الشاشة والمعاينات
+├── providers/                  # صفحة لكل مشغل (مولَّدة من packages.json)
+├── docs/
+│   ├── postpaid_contracts_cst_guide.md   # عقود المفوتر والغرامات ولوائح CST
+│   ├── hidden_terms_guide.md             # الشروط الفنية والمخفية
+│   └── comparison_70_115_sar.md          # تقرير فئة 70 – 115 ريال
+├── scripts/
+│   ├── generate_app_js.py      # يولّد app.js من packages.json  ← المستخدم حاليًا
+│   ├── generate_markdown.py    # يولّد providers/*.md من packages.json
+│   └── legacy/                 # سكربتات الإصدارات الأولى (لا تُشغَّل: تكتب فوق البيانات الحالية)
+└── tests/                      # فحوصات Playwright للواجهة على الجوال وسطح المكتب (تلتقط لقطات في assets/)
 ```
 
 ---
@@ -124,6 +119,23 @@ cd saudi-telecom-packages
 python3 -m http.server 8080
 ```
 ثم فتح المتصفح على: `http://localhost:8080`
+
+### تحديث البيانات (Updating the data)
+
+```bash
+# 1) عدّل packages.json (وحدّث metadata.total_packages و metadata.last_updated)
+# 2) أعد توليد الواجهة وصفحات المشغلين
+python3 scripts/generate_app_js.py
+python3 scripts/generate_markdown.py
+# 3) فحص الواجهة ولقطات الشاشة (يتطلب playwright-core و Chromium)
+node tests/verify_app.js
+node tests/test_mobile.js
+node tests/test_mobile_table.js
+```
+
+`app.js` و`providers/*.md` ملفات مولَّدة: عدّل `packages.json` أو السكربت، لا الناتج مباشرة.
+
+المنصة منشورة على DeluxHost (Caddy على المنفذ 8088) عبر `https://telecom.ayman.lat`.
 
 ---
 
